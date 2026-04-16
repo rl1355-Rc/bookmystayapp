@@ -1,0 +1,72 @@
+import java.util.*;
+
+// Reservation (reuse)
+class Reservation {
+    private String guestName;
+    private String roomType;
+
+    public Reservation(String guestName, String roomType) {
+        this.guestName = guestName;
+        this.roomType = roomType;
+    }
+
+    public String getGuestName() {
+        return guestName;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+}
+
+// Booking History
+class BookingHistory {
+
+    private List<Reservation> confirmedReservations;
+
+    public BookingHistory() {
+        confirmedReservations = new ArrayList<>();
+    }
+
+    // Add confirmed booking
+    public void addReservation(Reservation reservation) {
+        confirmedReservations.add(reservation);
+    }
+
+    // Get all bookings
+    public List<Reservation> getConfirmedReservations() {
+        return confirmedReservations;
+    }
+}
+
+// Report Service
+class BookingReportService {
+
+    public void generateReport(BookingHistory history) {
+
+        System.out.println("Booking History Report\n");
+
+        for (Reservation r : history.getConfirmedReservations()) {
+            System.out.println("Guest: " + r.getGuestName()
+                    + ", Room Type: " + r.getRoomType());
+        }
+    }
+}
+
+// Main class
+public class UseCase8BookingHistoryReport {
+
+    public static void main(String[] args) {
+
+        BookingHistory history = new BookingHistory();
+
+        // Add confirmed bookings
+        history.addReservation(new Reservation("Adhi", "Single"));
+        history.addReservation(new Reservation("Subha", "Double"));
+        history.addReservation(new Reservation("Vanathi", "Suite"));
+
+        // Generate report
+        BookingReportService reportService = new BookingReportService();
+        reportService.generateReport(history);
+    }
+}
